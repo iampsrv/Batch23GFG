@@ -1,0 +1,16 @@
+#!/bin/bash
+
+# Define directories to clean
+DIRS_TO_CLEAN="/tmp ~/Downloads"
+
+# Define file age threshold (days)
+FILE_AGE=30
+
+# Loop through directories and clean up files based on criteria
+for dir in $DIRS_TO_CLEAN; do
+    echo "Cleaning up $dir..."
+    # Find and delete files older than FILE_AGE days
+    find "$dir" -type f -mtime +$FILE_AGE -exec rm -f {} \;
+done
+
+echo "Cleanup complete."

@@ -1,0 +1,5 @@
+find /home/ubuntu -type f -name "*.txt" -exec tar -czvf "/backup/backup$(date +%Y%m%d%H%M%S).tar.gz" {} +
+
+
+#!/bin/bash
+tar -czvf /backup/backup$(date +%Y%m%d%H%M%S).tar.gz /home/ubuntu
