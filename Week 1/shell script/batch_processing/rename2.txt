@@ -1,0 +1,25 @@
+#!/bin/bash
+
+# Directory containing files to process
+DIRECTORY="/path/to/directory"
+
+# New base name for files
+BASE_NAME="Document"
+
+# Navigate to the directory
+cd "$DIRECTORY"
+
+# Initialize counter
+COUNTER=1
+
+# Rename .txt files
+for file in *.txt; do
+    if [ -f "$file" ]; then # Check if file exists and is a regular file
+        NEW_NAME="${BASE_NAME}_${COUNTER}.txt"
+        mv "$file" "$NEW_NAME"
+        echo "Renamed $file to $NEW_NAME"
+        ((COUNTER++)) # Increment counter
+    fi
+done
+
+echo "Batch renaming completed."

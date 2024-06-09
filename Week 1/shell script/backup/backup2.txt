@@ -1,0 +1,56 @@
+#!/bin/bash
+
+# Variables
+SOURCE_DIR="/home/user/data"
+DEST_DIR="/backups"
+REMOTE_USER="remoteuser"
+REMOTE_HOST="backupserver.example.com"
+LOG_FILE="/var/log/backup.log"
+DATE=$(date '+%Y-%m-%d %H:%M:%S')
+EMAIL="your.email@example.com"
+ARCHIVE_DIR="/home/user/backup_archives"
+ARCHIVE_NAME="backup_$(date '+%Y-%m-%d').tar.gz"
+
+# Create log file if it doesn't exist
+touch $LOG_FILE
+
+# Log the start time
+echo "[$DATE] Starting backup..." >> $LOG_FILE
+
+# Create the archive directory if it doesn't exist
+mkdir -p $ARCHIVE_DIR
+
+# Create a compressed archive of the source directory
+tar -czf $ARCHIVE_DIR/$ARCHIVE_NAME -C $SOURCE_DIR .
+
+# Check if the archive creation was successful
+if [ $? -eq 0 ]; then
+  echo "[$DATE] Archive $ARCHIVE_NAME created successfully." >> $LOG_FILE
+else
+  echo "[$DATE] Archive creation failed." >> $LOG_FILE
+  echo "Backup failed at archive creation stage" | mail -s "Backup Failure" $EMAIL
+  exit 1
+fi
+
+# Perform the backup using rsync
+rsync -avz --delete $ARCHIVE_DIR/$ARCHIVE_NAME $REMOTE_USER@$REMOTE_HOST:$DEST_DIR
+
+# Check if rsync was successful
+if [ $? -eq 0 ]; then
+  echo "[$DATE] Backup completed successfully." >> $LOG_FILE
+  echo "Backup completed successfully" | mail -s "Backup Success" $EMAIL
+else
+  echo "[$DATE] Backup failed." >> $LOG_FILE
+  echo "Backup failed during rsync" | mail -s "Backup Failure" $EMAIL
+  exit 1
+fi
+
+# Log the end time
+DATE=$(date '+%Y-%m-%d %H:%M:%S')
+echo "[$DATE] Backup process finished." >> $LOG_FILE
+
+# Clean up old archives (older than 7 days)
+find $ARCHIVE_DIR -type f -name "*.tar.gz" -mtime +7 -exec rm {} \;
+
+# Log the cleanup activity
+echo "[$DATE] Old archives cleaned up." >> $LOG_FILE

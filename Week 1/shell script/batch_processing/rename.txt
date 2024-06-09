@@ -1,0 +1,18 @@
+#!/bin/bash
+
+# Directory containing files to process
+DIRECTORY="/path/to/directory"
+
+# Task 1: Rename .txt files - Append a prefix
+PREFIX="new_"
+
+# Navigate to the directory
+cd "$DIRECTORY"
+
+# Rename .txt files
+for file in *.txt; do
+    if [ -f "$file" ]; then # Check if file exists and is a regular file
+        mv "$file" "${PREFIX}$file"
+        echo "Renamed $file to ${PREFIX}$file"
+    fi
+done

@@ -1,0 +1,18 @@
+#!/bin/bash
+
+# Directory containing log files to process
+DIRECTORY="/path/to/directory"
+
+# Navigate to the directory
+cd "$DIRECTORY"
+
+# Rename .log files to .txt
+for file in *.log; do
+    if [ -f "$file" ]; then # Check if file exists and is a regular file
+        NEW_NAME="${file%.log}.txt"  # Create new file name with .txt extension
+        mv "$file" "$NEW_NAME"       # Rename the file
+        echo "Converted $file to $NEW_NAME"
+    fi
+done
+
+echo "File format conversion from .log to .txt completed."

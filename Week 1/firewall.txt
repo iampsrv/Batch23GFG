@@ -1,0 +1,35 @@
+Basic Commands
+
+Enable/Disable UFW:
+Enable UFW: sudo ufw enable
+Disable UFW: sudo ufw disable
+
+Allowing Traffic:
+To allow traffic on a specific port: sudo ufw allow 22/tcp
+To allow traffic from a specific IP address on a specific port: sudo ufw allow from 192.168.1.100 to any port 22
+To allow traffic on a specific port using a specific protocol: sudo ufw allow 53/udp
+
+Denying Traffic:
+To deny traffic on a specific port: sudo ufw deny 22/tcp
+To deny traffic from a specific IP address: sudo ufw deny from 192.168.1.100
+To deny traffic from a specific IP address to a specific port: sudo ufw deny from 192.168.1.100 to any port 22
+
+Deleting Rules:
+To delete a rule, you first need to list the current rules with numbers: sudo ufw status numbered
+Then you can delete a rule by specifying its number: sudo ufw delete [number]
+
+Checking Status and Rules:
+To check UFW status and rules: sudo ufw status
+To check UFW status in a more verbose form (shows listening services): sudo ufw status verbose
+
+
+sudo apt install ufw
+sudo ufw status
+sudo ufw enable
+sudo ufw deny 22/tcp
+sudo ufw status verbose
+sudo ufw allow 22/tcp
+
+
+sudo firewall-cmd --zone=public --remove-service=ssh
+sudo firewall-cmd --zone=public --add-service=ssh --permanent

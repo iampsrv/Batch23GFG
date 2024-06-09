@@ -1,0 +1,29 @@
+#!/bin/bash
+
+# Variables
+SOURCE_DIR="/home/user/data"
+DEST_DIR="/backups"
+REMOTE_USER="remoteuser"
+REMOTE_HOST="backupserver.example.com"
+LOG_FILE="/var/log/backup.log"
+DATE=$(date '+%Y-%m-%d %H:%M:%S')
+
+# Create log file if it doesn't exist
+touch $LOG_FILE
+
+# Log the start time
+echo "[$DATE] Starting backup..." >> $LOG_FILE
+
+# Perform the backup using rsync
+rsync -avz --delete $SOURCE_DIR $REMOTE_USER@$REMOTE_HOST:$DEST_DIR
+
+# Check if rsync was successful
+if [ $? -eq 0 ]; then
+  echo "[$DATE] Backup completed successfully." >> $LOG_FILE
+else
+  echo "[$DATE] Backup failed." >> $LOG_FILE
+fi
+
+# Log the end time
+DATE=$(date '+%Y-%m-%d %H:%M:%S')
+echo "[$DATE] Backup process finished." >> $LOG_FILE

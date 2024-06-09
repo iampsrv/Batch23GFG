@@ -1,0 +1,8 @@
+#!/bin/bash
+
+# Define the directory
+directory="/home/ubuntu"
+
+# Find and delete files created in the last 5 minutes
+find "$directory" -type f -mmin -5 -exec rm {} \;
+echo "Deleted files created in the last 5 minutes."

@@ -1,0 +1,23 @@
+/mnt/d/GFG
+
+scp -i "batch23.pem" hello.txt ubuntu@ec2-54-225-48-85.compute-1.amazonaws.com:/home/ubuntu
+scp -i batch23.pem ubuntu@ec2-54-225-48-85.compute-1.amazonaws.com:/home/ubuntu/hello.txt shared-folder
+
+sftp -i batch23.pem ubuntu@ec2-54-225-48-85.compute-1.amazonaws.com
+ls: Lists files in the current directory on the remote server.
+lls: Lists files in the local machine's current directory.
+cd directory: Changes the directory on the remote server.
+lcd directory: Changes the directory on the local machine.
+get filename: Downloads the file from the remote server to the local machine.
+put filename: Uploads the file from the local machine to the remote server.
+mkdir directory: Creates a directory on the remote server.
+rmdir directory: Removes a directory on the remote server (must be empty).
+rm file: Deletes a file on the server.
+chmod mode file: Changes the permissions of the file on the server.
+
+
+Local to remote
+sudo rsync -av -e "ssh -i batch23.pem" /mnt/d/GFG/omen-ec2 ubuntu@ec2-54-225-48-85.compute-1.amazonaws.com:/home/ubuntu
+
+Remote to local
+sudo rsync -av -e "ssh -i batch23.pem" ubuntu@ec2-54-225-48-85.compute-1.amazonaws.com:/home/ubuntu/omen-ec2 /mnt/d/GFG/
