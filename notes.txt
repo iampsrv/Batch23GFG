@@ -6,5 +6,10 @@ Lambda
 
 Java, Node, Go
 
-
+Week 1
 Scheduler
+Networking 
+User and Group Administration
+cron
+Kernel and Module Management
+Security (ufw, firewalld)

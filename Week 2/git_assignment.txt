@@ -1,0 +1,12 @@
+Setup Git, configure user information, and understand basic Git commands
+Create a new repository on GitHub and clone it locally. Make changes, commit them, and push back to the repository.
+Create a .gitignore file and understand what types of files should be ignored.
+Create, switch between, and merge branches. Understand basic merging conflicts and how to resolve them
+Manage multiple remotes, understand remote tracking branches, and use fetch, pull, and push effectively.
+Use git stash to save uncommitted changes temporarily and clean the working directory using git clean.
+Create annotated and lightweight tags for significant commits. Understand how to use tags for version releases.
+Fork an existing repository, clone it, make changes, and submit a pull request.
+Use GitHub issues to track tasks, enhancements, and bugs. Use labels to categorize issues.
+Collaborate with other students on a project, review code changes, and understand the pull request lifecycle.
+Perform interactive rebasing, squash commits, and understand the differences between merging and rebasing.
+Use cherry-pick to apply changes from specific commits and explore the reflog to navigate through previous states.
