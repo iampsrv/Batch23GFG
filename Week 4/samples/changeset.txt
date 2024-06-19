@@ -1,0 +1,15 @@
+pipeline {
+    agent any
+    stages {
+        stage('Build and Test') {
+            when {
+                not {
+                    changeset "**/.gitignore"
+                }
+            }
+            steps {
+                echo 'Executing build and test steps...'
+            }
+        }
+    }
+}

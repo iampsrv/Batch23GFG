@@ -1,0 +1,30 @@
+1. Steps to change default port for jenkins server:
+
+Edit /etc/default/jenkins and change HTTP_PORT to required port
+do the same for this file as well /lib/systemd/system/jenkins.service
+
+sudo systemctl daemon-reload
+sudo systemctl restart jenkins
+sudo service jenkins restart
+
+Troubleshooot: sudo netstat -tuln | grep 8080 (check port used by other service)
+
+2. Jenkins initial password: sudo cat /var/lib/jenkins/secrets/initialAdminPassword
+
+3. Configuring kubernetes in jenkins
+download kubernetes cluster config file located in ~/.kube/config
+kubectl create deployment nginx-deployment --image=nginx
+kubectl expose deployment nginx-deployment --port=80 --type=LoadBalancer
+
+4. For Github webhook (Github SCM polling)
+Add Payload URL: http://204.236.203.160:8080/github-webhook/
+Content type: application/json
+Send me everything
+Enable active option
+
+sudo usermod -a -G docker ec2-user
+sudo usermod -aG docker jenkins
+sudo systemctl restart jenkins
+
+
+

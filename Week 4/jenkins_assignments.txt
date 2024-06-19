@@ -1,0 +1,9 @@
+Install Jenkins on a local machine or a virtual server and run the initial setup.
+Create a basic job in Jenkins that executes a simple shell script.
+Set up a freestyle project in Jenkins to build a simple "Hello World" application.
+Configure Jenkins to pull code from a Git repository for building.
+Set up SCM polling to trigger builds automatically upon code commits.
+Integrate automated testing (e.g., JUnit, Pytest) into the Jenkins build process.
+Create a multi-branch pipeline project that builds branches dynamically.
+Create a CI/CD pipeline that includes building, testing, and deploying an application.
+Create a Jenkins pipeline that builds a Docker image and pushes it to a Docker registry.

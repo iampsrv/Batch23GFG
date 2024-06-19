@@ -1,0 +1,56 @@
+pipeline {
+    environment{
+        envVar1 = "environment variable1"
+        envVar2 = "environment variable2"
+        envVar3 = "environment variable3"
+    }
+    agent any 
+    stages {
+        stage('Build') { 
+            steps {
+                sh 'echo ${envVar1}'
+                echo "${env.BRANCH_NAME}"
+            }
+        }
+        stage('Test') { 
+            steps {
+                sh 'echo ${envVar2}'
+                echo "${env.WORKSPACE}"
+            }
+        }
+        stage('Deploy') { 
+            steps {
+                sh 'echo ${envVar3}'
+                echo "${env.BUILD_NUMBER}"
+            }
+        }
+    }
+}
+
+
+
+BUILD_NUMBER: The current build number, such as "153".
+
+BUILD_ID: The current build ID, which is by default the same as BUILD_NUMBER but can be customized.
+
+BUILD_URL: The URL of the current build.
+
+JOB_NAME: The name of the job.
+
+JOB_BASE_NAME: The short name of the job, which doesn't include any folder names if the job is in one or more folders.
+
+BUILD_TAG: A string of "jenkins-${JOB_NAME}-${BUILD_NUMBER}". Useful for tagging artifacts.
+
+EXECUTOR_NUMBER: The unique number that identifies the current executor (among executors of the same machine) that’s carrying out this build. This is useful for distinguishing artifacts of concurrent builds.
+
+NODE_NAME: The name of the node (agent) the current build is running on. It's "master" if the build is on the master node.
+
+NODE_LABELS: Whitespace-separated list of labels assigned to the node (agent) that the build is running on.
+
+WORKSPACE: The absolute path of the directory assigned to the build as a workspace.
+
+JENKINS_URL: The URL of the Jenkins server.
+
+GIT_COMMIT: The commit hash of the current build. This is specific to jobs that use Git.
+
+GIT_BRANCH: The branch name of the current build. This is also specific to jobs that use Git.

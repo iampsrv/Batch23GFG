@@ -1,0 +1,41 @@
+pipeline {
+    agent any
+    stages {
+        stage('Build') {
+            steps {
+                // Your build steps here
+                echo 'Building...'
+            }
+        }
+        stage('Test') {
+            steps {
+                // Your testing steps here
+                echo 'Testing...'
+            }
+        }
+    }
+    post {
+        always {
+            echo 'This will always run.'
+        }
+        success {
+            echo 'Build and Test Stages succeeded!'
+        }
+        failure {
+            echo 'Build or Test failed. Check logs for details.'
+        }
+        unstable {
+            echo 'Build or Test was unstable (e.g., test failures).'
+        }
+        changed {
+            echo 'This will run only if the build status changed from the last build.'
+        }
+    }
+}
+
+
+always: Run the steps inside this block irrespective of the Pipeline or Stage result.
+success: Run the steps inside this block only if the Pipeline or Stage completes successfully.
+failure: Run the steps inside this block only if the Pipeline or Stage fails.
+unstable: Run the steps inside this block only if the Pipeline or Stage results in an unstable state (often used for test failures).
+changed: Run the steps inside this block if the Pipeline or Stage result changes from the last run (for example, from failure to success).

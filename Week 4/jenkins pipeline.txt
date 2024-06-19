@@ -1,0 +1,62 @@
+pipeline {
+    agent any
+    environment {
+        IMAGE_NAME = 'psrv3/simplivtodoapp'
+        IMAGE_TAG = "${IMAGE_NAME}:${env.BUILD_NUMBER}"
+        KUBECONFIG = credentials('kubeconfig-credentials-id')
+    }
+
+
+    stages {
+        stage('Checkout') {
+            steps {
+                git 'https://github.com/iampsrv/simplivapp.git'
+                sh "ls -ltr"
+            }
+        }
+        stage('Setup') {
+            steps {
+                sh "pip install -r requirements.txt"
+            }
+        }
+        stage('Test') {
+            steps {
+                sh "pytest"
+            }
+        }
+        stage('Login to docker hub') {
+            steps {
+                withCredentials([string(credentialsId: 'dockerhubpwd', variable: 'dockerhubpwd')]) {
+                sh 'docker login -u psrv3 -p ${dockerhubpwd}'}
+                echo 'Login successfully'
+            }
+        }
+        stage('Build Docker Image')
+        {
+            steps
+            {
+                sh 'docker build -t ${IMAGE_TAG} .'
+                echo "Docker image build successfully"
+                sh "docker images"
+            }
+        }
+        stage('Push Docker Image')
+        {
+            steps
+            {
+                sh 'docker push ${IMAGE_TAG}'
+                echo "Docker image push successfully"
+            }
+        }
+        stage('Deploy to kubernetes cluster') 
+        {
+            steps
+            {
+                // sh 'docker run --name flaskapp -itd -p 5001:5001 psrv3/jenkins-flask'
+                sh 'kubectl get pod'
+                sh 'kubectl apply -f deployment/deployment.yaml'
+                echo "Kubernetes deployment done successfully"
+            }
+        }
+    }
+}

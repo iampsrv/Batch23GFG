@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Todo App</title>
+</head>
+<body>
+    <h1>Todo List</h1>
+<h2>cicd project batch 15 kubernetes version green   nkmcklxdmc</h2>
+    <form action="/add" method="post">
+        <input type="text" name="todo" />
+        <input type="submit" value="Add" />
+    </form>
+    <ul>
+        {% for id, task in todos.items() %}
+        <li>{{ task }} <a href="{{ url_for('delete', id=id) }}">Delete</a></li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

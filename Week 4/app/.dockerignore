@@ -1,0 +1,4 @@
+myapp/
+.pytest_cache/
+__pycache__/
+app.pyc

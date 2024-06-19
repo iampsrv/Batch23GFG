@@ -1,0 +1,147 @@
+Jenkins:
+
+###############Installation###################
+
+__Dockerfile__
+
+FROM jenkins/jenkins:lts
+USER root
+RUN apt-get update -qq \
+    && apt-get install -qqy apt-transport-https ca-certificates curl gnupg2 software-properties-common
+RUN curl -fsSL https://download.docker.com/linux/debian/gpg | apt-key add -
+RUN add-apt-repository \
+   "deb [arch=amd64] https://download.docker.com/linux/debian \
+   $(lsb_release -cs) \
+   stable"
+RUN apt-get update  -qq \
+    && apt-get -y install docker-ce
+RUN usermod -aG docker jenkins
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+docker image build -t custom-jenkins-docker .
+
+docker run -it -p 8080:8080 -p 50000:50000 -v /var/run/docker.sock:/var/run/docker.sock -v jenkins_home:/var/jenkins_home custom-jenkins-docker
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+localhost:8080
+Location of initialAdminPassword : /var/jenkins_home/secrets/initialAdminPassword
+
+user and pwd: pranjal
+
+docker ps
+docker exec -it -u 0 d3810418c660(container id) /bin/bash
+
+
+apt install vim
+apt install python3-pip
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Build, Test, Docker
+
+cd /var/jenkins_home/workspace/test
+
+pipeline
+{
+    agent any
+
+    stages
+    {
+        stage('Build')
+        {
+            steps 
+            {
+                git 'https://github.com/iampsrv/g-a-test.git'
+                sh "python3 factorial.py"
+                sh "pip install -r req.txt"
+            }
+        }
+        stage('Test')
+        {
+            steps
+            {
+                sh "pytest test.py"
+                echo "Unit testing done successfully"
+            }
+        } 
+        stage('Build Docker Image')
+        {
+            steps
+            {
+                sh 'docker build -t psrv3/flaskdockerj:latest .'
+                echo "Docker image build successfully"
+                sh "docker images"
+            }
+        }
+        stage('Push Docker Image')
+        {
+            steps
+            {
+                sh 'docker push psrv3/flaskdockerj'
+                echo "Docker image push successfully"
+            }
+        }
+    }
+}
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Use ngrok to make localhost public. So that we use public url for creating webhook
+ngrok http localhost:8080
+
+http://127.0.0.1:4040/status
+http://127.0.0.1:4040/inspect/http
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+#A Poll SCM
+1. Check Git option from Source Code Management: Add Repo URl, credentials and branch name
+2. Schedule time for Poll SCM (* * * * * after every 1 min)
+
+If there would be any changes in github repo, then it would execute shell command(Build Steps)
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+#B Build Perodically
+
+All options same as Poll SCM
+
+Difference between Poll SCM and Build Peroidically is Poll SCM will run build if any changes occur although it would look after the repo after specified time schedule whereas,
+Build Peroidically will run build after every specified time schedule with/without any changes occur to repo.
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+#C GitHub hook trigger for GITScm polling
+
+Use ngrok to make localhost public. So that we use public url for creating webhook (http://127.0.0.1:4040/status) use-ngrok http localhost:8080
+1. Github Repo->Settings->Webhooks
+2. Add Payload URL (https://858d-203-81-241-215.ngrok.io//github-webhook/)
+3. Set Content type to application/json
+4. Left Secret box empty
+5. Set 'Send me everything' events to trigger this webhook.
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+###Build Triggers###
+
+1. Build after other projects are built
+=> Just mention the name of project to watch, then select when to trigger (Success, Failed, Abort), and just click Build Now of mentioned project, after it automatically start build of project
+Build Now (project to watch) => Build Now(current project)
+
+2. Build periodically:
+=> Build after specified time(No matter changes occurred or not)
+
+3. GitHub hook trigger for GITScm polling
+=> To setup the webhook, you need to goto your Github repo – > Settings -> Webhooks -> Add webhook -> <jenkins url>/github-webhook.
+http://9682-203-81-242-177.ngrok.io//github-webhook/
+After selecting this option, all you need to do is run the build first time from within Jenkins using “Build Now” option. 
+http://18.212.169.125:8080//github-webhook/
+
+4. Poll SCM:
+=> Build after any changes occured (New commit take place in Github) 
+
+5. Quiet period
+
+6. Trigger builds remotely (e.g., from scripts): JENKINS_URL/job/test/build?token=TOKEN_NAME => curl -I http://localhost:8080/job/test/build?token=pranjal 
+=> http://pranjal:pranjal@localhost:8080/job/test/build?token=pranjal (To avoid HTTP/1.1 403 Forbidden)
+ Here "pranjal" is Authentication Token
+Either use curl or directly put url on web browser
