@@ -1,0 +1,15 @@
+docker build -t flaskapp-ms -f Dockerfile.app .
+docker build -t time-service -f Dockerfile.time_svc .
+docker build -t weather-service -f Dockerfile.weather_svc .
+
+docker tag flaskapp-ms psrv3/flaskapp-ms
+docker push psrv3/flaskapp-ms
+
+docker tag time-service psrv3/time-service
+docker push psrv3/time-service
+
+docker tag weather-service psrv3/weather-service
+docker push psrv3/weather-service
+
+docker compose build
+docker compose up

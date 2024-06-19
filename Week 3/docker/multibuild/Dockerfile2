@@ -1,0 +1,22 @@
+# Stage 1: Build stage
+FROM alpine:latest AS builder
+
+RUN apk update && \
+    apk add --no-cache python3 py3-pip && \
+    pip install --upgrade pip
+
+WORKDIR /app
+COPY req.txt .
+RUN pip install --no-cache-dir -r req.txt
+
+# Stage 2: Production stage
+FROM alpine:latest
+
+# Copy Python runtime from the builder stage
+COPY --from=builder /usr /usr
+
+WORKDIR /app
+COPY . .
+
+EXPOSE 8080
+CMD ["python3", "app.py"]

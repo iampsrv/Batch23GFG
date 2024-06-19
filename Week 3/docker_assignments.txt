@@ -1,0 +1,10 @@
+01. Build any application
+02. Create dockerfile
+03. Build custom docker image
+04. Push custom docker image to dockerhub
+05. Create a Docker Compose file (docker-compose.yml) to define a multi-container application with at least two services (e.g., web server and database).
+06. Create a user-defined bridge network using "docker network create
+07. Create a named volume using "docker volume create
+08. Attach a named volume to a container to persist data and Verify data persistence by stopping and restarting the container
+09. Explore ways to optimize the Dockerfile (reduce docker image size)
+10. Practice docker commands for managing docker images and containers

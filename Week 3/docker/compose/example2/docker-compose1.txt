@@ -1,0 +1,22 @@
+version: '3'
+services:
+  flaskapp-ms:
+    build:
+      context: .
+      dockerfile: Dockerfile.app
+    ports:
+      - "5000:5000"
+
+  time-service:
+    build:
+      context: .
+      dockerfile: Dockerfile.time_svc
+    ports:
+      - "5001:5001"
+
+  weather-service:
+    build:
+      context: .
+      dockerfile: Dockerfile.weather_svc
+    ports:
+      - "5002:5002"

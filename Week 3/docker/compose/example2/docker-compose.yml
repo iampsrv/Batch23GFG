@@ -1,0 +1,23 @@
+version: '3'
+services:
+  flaskapp-ms:
+    image: psrv3/flaskapp-ms:latest
+    ports:
+      - "5000:5000"
+    volumes:
+      - myapp:/app
+    depends_on:
+      - time-service
+      - weather-service
+
+  time-service:
+    image: psrv3/time-service:latest
+    ports:
+      - "5001:5001"
+
+  weather-service:
+    image: psrv3/weather-service:latest
+    ports:
+      - "5002:5002"
+volumes:
+  myapp:
