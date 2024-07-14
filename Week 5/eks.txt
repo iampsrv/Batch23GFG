@@ -1,0 +1,33 @@
+sudo apt update
+
+curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+sudo apt install unzip -y
+unzip awscliv2.zip
+sudo ./aws/install --update
+aws --version
+
+aws configure
+
+curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+chmod +x ./kubectl
+sudo mv ./kubectl /usr/local/bin
+kubectl version
+
+curl --silent --location "https://github.com/weaveworks/eksctl/releases/latest/download/eksctl_$(uname -s)_amd64.tar.gz" | tar xz -C /tmp
+sudo mv /tmp/eksctl /usr/local/bin
+eksctl version
+
+eksctl create cluster --name new-eks-cluster4 --version 1.24 --region us-west-1 --nodegroup-name worker-nodes --node-type t2.micro --nodes 2
+eksctl create cluster --name new-eks-cluster4 --version 1.24 --region us-west-1 --nodegroup-name worker-nodes --node-type t2.medium --nodes 2
+eksctl create cluster --name new-eks-cluster4 --version 1.24 --region us-west-1 --nodegroup-name worker-nodes --node-type t2.medium --nodes 2 --asg-access
+
+kubectl get nodes
+
+kubectl create deployment nginx-deployment --image=nginx
+kubectl run mypod --port=5000 --image=psrv3/kodekloud_jenkins_flask_app --labels=app=flask-app
+kubectl expose deployment nginx-deployment --port=80 --type=LoadBalancer
+
+eksctl scale nodegroup --cluster=new-eks-cluster4 --name=worker-nodes --nodes-min=2 --nodes-max=5
+
+eksctl delete cluster --name new-eks-cluster4
+

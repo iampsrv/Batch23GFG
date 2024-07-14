@@ -1,0 +1,1 @@
+kubectl patch service myflaskapp-service -p '{"spec":{"selector":{"version":"green"}}}'

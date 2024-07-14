@@ -1,0 +1,4 @@
+apiVersion: v2
+name: my-flask-app
+version: 1.0.0
+description: My Flask app on Kubernetes

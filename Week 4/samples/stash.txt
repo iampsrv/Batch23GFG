@@ -1,0 +1,48 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Build') {
+            steps {
+                script {
+                    // Build step: Compile the code and package it into a JAR file
+                    echo 'Building...'
+                    sh 'mvn clean package'
+                    // Stash the built JAR file
+                    stash includes: 'target/*.jar', name: 'app-jar'
+                }
+            }
+        }
+
+        stage('Test') {
+            steps {
+                script {
+                    // Unstash the JAR file for testing
+                    unstash 'app-jar'
+                    echo 'Testing...'
+                    // Run unit tests
+                    sh 'mvn test'
+                }
+            }
+        }
+
+        stage('Deploy') {
+            steps {
+                script {
+                    // Unstash the JAR file for deployment
+                    unstash 'app-jar'
+                    echo 'Deploying...'
+                    // Deploy the JAR file to the staging server
+                    sh 'scp target/*.jar user@staging-server:/path/to/deploy'
+                }
+            }
+        }
+    }
+
+    post {
+        always {
+            // Preserve stashes from completed builds
+            preserveStashes buildCount: 5, allowEmpty: true
+        }
+    }
+}

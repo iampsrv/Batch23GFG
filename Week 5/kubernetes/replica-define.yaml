@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: myfirstpodrs
+  labels:
+    name: frontend
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      name: frontend
+  template:
+    metadata:
+      labels:
+        name: frontend
+    spec:
+      containers:
+      - name: myfirstpodcontainer
+        image: psrv3/batch19flaskapp
+        ports:
+        - containerPort: 8080

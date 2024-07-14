@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: myfirstpod
+  labels:
+    name: frontend
+spec:
+  containers:
+  - name: myfirstpodcontainer
+    image: psrv3/batch19flaskapp
+    ports:
+    - containerPort: 8080

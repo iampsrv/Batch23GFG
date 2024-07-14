@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    run: mynginxpod
+  name: mynginxpod2
+spec:
+  containers:
+  - image: nginx
+    name: mynginxpod
+    volumeMounts:
+    - mountPath: "/var/app/ps"
+      name: volumepv
+  volumes:
+  - name: volumepv
+    persistentVolumeClaim:
+      claimName: pvc

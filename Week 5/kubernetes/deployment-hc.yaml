@@ -1,0 +1,55 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: myfirstdeployment
+  labels:
+    app: myflaskapp
+spec:
+  template:
+    metadata:
+      name: myfirstpod
+      labels:
+        app: myflaskapp
+    spec:
+      containers:
+      - name: myfirstpod
+        image: psrv3/k8sapp:1
+        ports:
+        - containerPort: 5001
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 5000
+          initialDelaySeconds: 1
+          periodSeconds: 10
+        livenessProbe:
+          httpGet:
+            path: /kfdjksd
+            port: 5000
+          initialDelaySeconds: 30
+          periodSeconds: 30
+        resources:
+          limits:
+            cpu: 300m
+          requests:
+            cpu: 200m
+  replicas: 3
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: myflaskapp
+# ---
+# apiVersion: v1
+# kind: Service
+# metadata:
+#   name: myfirstpodsvc
+# spec:
+#   selector:
+#     app: myflaskapp
+#   ports:
+#   - name: http
+#     protocol: TCP
+#     port: 80
+#     targetPort: 5001
+#   type: LoadBalancer

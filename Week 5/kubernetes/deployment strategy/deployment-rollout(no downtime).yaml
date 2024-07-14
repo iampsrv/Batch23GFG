@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: myfirstpod-deploy
+  namespace: default
+  labels:
+    name: frontend
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      name: frontend
+  template:
+    metadata:
+      labels:
+        name: frontend
+    spec:
+      containers:
+      - name: myfirstpodcontainer
+        image: psrv3/k8sapp:3
+        ports:
+        - containerPort: 5001
+
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: default
+  name: flask-app-service
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 8080
+    targetPort: 5001
+  selector:
+    name: frontend

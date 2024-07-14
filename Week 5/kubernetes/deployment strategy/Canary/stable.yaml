@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: flask-app-deployment-stable
+  labels:
+    app: flask-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: flask-app
+      version: stable
+  template:
+    metadata:
+      labels:
+        app: flask-app
+        version: stable
+    spec:
+      containers:
+      - name: flask-app
+        image: psrv3/cicdbatchfifteenga:7
+        ports:
+        - containerPort: 5000

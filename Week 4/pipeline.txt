@@ -1,0 +1,74 @@
+pipeline {
+    agent any
+
+    environment {
+        DOCKER_IMAGE = "batch23appnew"
+        DOCKER_REGISTRY = "psrv3"  // Replace with your Docker Hub username
+        IMAGE_TAG = "${DOCKER_REGISTRY}/${DOCKER_IMAGE}:${env.BUILD_NUMBER}"
+    }
+
+    stages {
+        stage('Checkout') {
+            steps {
+                // Checkout the code from the Git repository
+                git 'https://github.com/iampsrv/simplivapp.git'
+            }
+        }
+         stage('Setup') {
+            steps {
+                sh "pip install flask --break-system-packages"
+            }
+        }
+        stage('Test') {
+            steps {
+                sh "pytest"
+            }
+        }
+        
+        
+        stage('Build Docker Image') {
+            steps {
+                script {
+                    // Build the Docker image
+                    docker.build("${IMAGE_TAG}")
+                }
+            }
+        }
+        
+        stage('Login to Docker Hub') {
+            steps {
+                script {
+                    docker.withRegistry('https://index.docker.io/v1/', 'docker-hub-credentials') {
+                        echo 'Logged in to Docker Hub'
+                    }
+                }
+            }
+        }
+        
+        stage('Push Docker Image') {
+            steps {
+                script {
+                    docker.withRegistry('https://index.docker.io/v1/', 'docker-hub-credentials') {
+                        docker.image("${IMAGE_TAG}").push()
+                    }
+                }
+            }
+        }
+        
+        // stage('Cleanup') {
+        //     steps {
+        //         script {
+        //             // Clean up any Docker images to free space
+        //             sh 'docker image prune -af'
+        //         }
+        //     }
+        // }
+    }
+
+    // post {
+    //     always {
+    //         // Additional clean up if necessary
+    //         cleanWs()
+    //     }
+    // }
+}

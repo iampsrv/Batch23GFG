@@ -1,0 +1,19 @@
+01. What are containers?
+02. Why do we need them?
+03. What is virtualization? Different types of Hypervisors
+04. containers vs VM
+05. What are Docker Images? Docker images vs Docker containers
+06. Docker base image
+07. Architecture of Docker Image
+08. What is Dockerfile?
+09. How Docker works? (Architecture)
+10. Docker workflow
+11. Lifecycle of Docker container
+12. Docker commands
+13. Build custom docker image
+14. Push docker image to Docker hub
+15. Docker Extensions
+
+
+https://www.geeksforgeeks.org/how-to-install-docker-using-chocolatey-on-windows/
+

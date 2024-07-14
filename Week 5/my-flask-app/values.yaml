@@ -1,0 +1,10 @@
+image:
+  repository: psrv3/batch19flaskapp
+  tag: latest
+service:
+  type: LoadBalancer
+  port: 8080
+  name: my-flask-app1
+ingress:
+  enabled: true
+  host: my-flask-app.example.com

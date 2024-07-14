@@ -1,0 +1,20 @@
+#kubectl taint nodes node1 app=blue:NoSchedule
+
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: blue-app
+spec:
+  containers:
+  - name: blue-app-container
+    image: nginx
+  tolerations:
+  - key: "app"
+    operator: "Equal"
+    value: "blue"
+    effect: "NoSchedule"
+
+#kubectl apply -f blue-app.yaml
+#kubectl describe pod blue-app
+#kubectl taint nodes node1 app-:NoSchedule/PreferNoSchedule/NoExecute

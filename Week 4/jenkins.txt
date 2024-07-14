@@ -22,7 +22,11 @@ Content type: application/json
 Send me everything
 Enable active option
 
+
+
 sudo usermod -a -G docker ec2-user
+
+5. After installing docker
 sudo usermod -aG docker jenkins
 sudo systemctl restart jenkins
 

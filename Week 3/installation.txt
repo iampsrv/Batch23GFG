@@ -1,0 +1,6 @@
+runnning shell script "docker.sh"
+
+sudo docker run hello-world
+sudo docker ps -a
+sudo systemctl status docker
+sudo systemctl restart docker

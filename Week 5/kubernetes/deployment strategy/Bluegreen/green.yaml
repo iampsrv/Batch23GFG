@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: flask-app-deployment-green
+  labels:
+    app: flask-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: flask-app
+      version: green
+  template:
+    metadata:
+      labels:
+        app: flask-app
+        version: green
+    spec:
+      containers:
+      - name: flask-app
+        image: psrv3/k8sapp:3
+        ports:
+        - containerPort: 5001

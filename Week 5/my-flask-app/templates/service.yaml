@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.service.name }}
+spec:
+  selector:
+    app: my-flask-app
+  ports:
+  - protocol: TCP
+    port: {{ .Values.service.port }}
+    targetPort: 5001
+  type: {{ .Values.service.type }}
