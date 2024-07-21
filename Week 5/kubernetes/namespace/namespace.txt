@@ -1,0 +1,6 @@
+kubectl config current-context minikube
+kubectl config set-context batchgfg23 --user=minikube --namespace=team-a --cluster=minikube
+kubectl config use-context batchgfg23
+kubectl config current-context minikube
+
+minikube start --network-plugin=cni --cni=calico

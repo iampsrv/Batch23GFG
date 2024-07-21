@@ -10,8 +10,8 @@ spec:
   selector:
     matchLabels:
       name: frontend
-  strategy:
-    type: Recreate
+  # strategy:
+  #   type: Recreate
   template:
     metadata:
       labels:

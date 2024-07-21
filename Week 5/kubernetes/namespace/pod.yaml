@@ -1,9 +1,10 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: myfirstpod
+  name: myfirstpod-ns
   labels:
     name: frontend
+  namespace: team-a
 spec:
   containers:
   - name: myfirstpodcontainer

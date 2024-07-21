@@ -5,7 +5,7 @@ metadata:
   labels:
     app: infinite-calls
 spec:
-  replicas: 1
+  replicas: 3
   selector:
     matchLabels:
       app: infinite-calls
@@ -21,4 +21,4 @@ spec:
         command:
         - /bin/sh
         - -c
-        - "while true; do wget -q -O- http://myfirstpodsvc; done"
+        - "while true; do wget -q -O- http://myfirstpodsvc:5000; done"

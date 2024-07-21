@@ -7,7 +7,7 @@ metadata:
 spec:
   containers:
   - name: test-container
-    image: psrv3/k8sapp:4
+    image: psrv3/batch23cmapp:latest
     ports:
     - containerPort: 5001
     env:

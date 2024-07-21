@@ -13,9 +13,9 @@ spec:
     spec:
       containers:
       - name: myfirstpod
-        image: psrv3/k8sapp:1
+        image: psrv3/example:13
         ports:
-        - containerPort: 5001
+        - containerPort: 5000
         readinessProbe:
           httpGet:
             path: /
@@ -24,15 +24,15 @@ spec:
           periodSeconds: 10
         livenessProbe:
           httpGet:
-            path: /kfdjksd
+            path: /abc
             port: 5000
           initialDelaySeconds: 30
           periodSeconds: 30
-        resources:
-          limits:
-            cpu: 300m
-          requests:
-            cpu: 200m
+        # resources:
+  #   limits:
+  #     cpu: 300m
+  #   requests:
+  #     cpu: 200m
   replicas: 3
   strategy:
     type: Recreate

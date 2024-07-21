@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: customera-pod
+spec:
+  containers:
+  - name: customera
+    image: nginx
+  tolerations:
+  - key: "customer_name"
+    operator: "Equal"
+    value: "customer_A"
+    effect: "NoSchedule"
+
+# kubectl taint nodes minikube customer_name=customer_A:NoSchedule
+# kubectl taint nodes minikube-m02 customer_name=customer_B:NoSchedule

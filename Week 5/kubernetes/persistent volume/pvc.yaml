@@ -4,8 +4,10 @@ metadata:
   name: pvc
 spec:
   accessModes:
-    - ReadWriteMany
+  - ReadWriteMany
   resources:
     requests:
       storage: 256m
   storageClassName: shared
+
+# permission

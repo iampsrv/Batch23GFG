@@ -1,14 +1,16 @@
 apiVersion: apps/v1
-kind: ReplicaSet
+kind: Deployment
 metadata:
-  name: myfirstpodrs
+  name: myfirstpoddeploy
   labels:
     name: frontend
 spec:
-  replicas: 2
+  replicas: 3
   selector:
     matchLabels:
       name: frontend
+  strategy:
+    type: Recreate
   template:
     metadata:
       labels:

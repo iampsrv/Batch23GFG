@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: rpn
+  labels:
+    app: rpn
+spec:
+  containers:
+  - name: busybox-rpn
+    image: busybox
+    imagePullPolicy: IfNotPresent
+    command: ['sh', '-c', 'exit 1']
+  restartPolicy: Never
