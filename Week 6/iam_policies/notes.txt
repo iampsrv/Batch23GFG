@@ -1,0 +1,9 @@
+Effect: Specifies whether the statement allows or denies access. Valid values are "Allow" and "Deny".
+
+Principal: Specifies the user, account, service, or other entity that is allowed or denied access to a resource.
+
+Action: Lists the actions that the policy allows or denies. Each action is prefixed by a service identifier (e.g., "s3", "ec2").
+
+Resources: Specifies the AWS resources to which the actions apply, identified by Amazon Resource Names (ARNs).
+
+Conditions: Specifies conditions for when a policy is in effect. Conditions are key-value pairs that specify how, where, or when a policy is in effect.

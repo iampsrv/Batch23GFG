@@ -1,0 +1,14 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": [
+                "kinesis:PutRecord",
+                "kinesis:GetShardIterator",
+                "kinesis:GetRecords"
+            ],
+            "Resource": "arn:aws:kinesis:us-east-1:123456789012:stream/ExampleStream"
+        }
+    ]
+}

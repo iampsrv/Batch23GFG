@@ -7,6 +7,6 @@ metadata:
 spec:
   containers:
   - name: myfirstpodcontainer
-    image: psrv3/example:13
+    image: pratibhasaxena/basic_todo_app:1
     ports:
-    - containerPort: 5000
+    - containerPort: 8081

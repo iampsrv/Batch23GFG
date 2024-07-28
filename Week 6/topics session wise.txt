@@ -1,0 +1,32 @@
+IAM done
+EC2 done
+VPC done
+ASG done
+ELB done
+SNS done
+
+
+Placement groups
+
+
+S3 partially done
+ECS (server based) done
+ECR dockerhub done
+Fargate (Serverless) done
+Lambda done
+SQS 
+Cloudwatch done (log groups only)
+metrics left
+
+https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_providers_saml.html
+https://aws.amazon.com/ec2/instance-types/
+
+https://calculator.aws/
+
+
+
+https://docs.aws.amazon.com/lambda/latest/dg/chapter-layers.html
+
+Endpoint services
+NAT gateways
+Peering connections
