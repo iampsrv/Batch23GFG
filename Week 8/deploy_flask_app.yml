@@ -1,0 +1,15 @@
+---
+- name: Deploy Flask Web Application
+  hosts: prod
+  become: yes
+  tasks:
+    - name: Clone the Git repository
+      git:
+        repo: https://github.com/iampsrv/aws-flask.git
+        dest: /home/ubuntu/application
+
+    - name: Install Python dependencies
+      shell: pip install flask --break-system-packages
+        
+    - name: Start the Flask application
+      shell: python3 /home/ubuntu/application/app.py

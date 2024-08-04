@@ -1,0 +1,2 @@
+- name: Restart Flask Application
+  shell: pkill -f 'python3 {{ app_path }}'; nohup python3 "{{ app_path }}" > /dev/null 2>&1 &

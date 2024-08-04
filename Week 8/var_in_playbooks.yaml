@@ -1,0 +1,12 @@
+---
+- name: Ansible Playbook to Install and Setup Apache on Ubuntu
+  hosts: prod
+  become: yes
+  vars:
+    my_var: apache2
+  tasks:
+    - name: Install latest version of Apache
+      apt:
+        name: "{{ my_var }}"
+        update_cache: yes
+        state: absent

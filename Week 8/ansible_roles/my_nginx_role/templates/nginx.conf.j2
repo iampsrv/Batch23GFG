@@ -1,0 +1,14 @@
+worker_processes 1;
+events {
+    worker_connections 1024;
+}
+http {
+    server {
+        listen {{ nginx_listen_port }} default_server;
+        server_name _;
+        location / {
+            root /var/www/html;
+            index index.html;
+        }
+    }
+}

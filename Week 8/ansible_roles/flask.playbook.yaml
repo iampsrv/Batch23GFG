@@ -1,0 +1,6 @@
+---
+- name: flask app deployment
+  hosts: prod
+  become: true
+  roles:
+    - flask_app_deployment_role

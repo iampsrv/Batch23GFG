@@ -1,0 +1,22 @@
+---
+- name: Clone the Git repository
+  git:
+    repo: "{{ repo_url }}"
+    dest: "{{ repo_dest }}"
+    update: yes
+  register: git_clone
+  changed_when: "'Updated' in git_clone.stdout"
+  notify: Restart Flask Application
+  tags: 
+    - clone_repo
+
+- name: Install Python dependencies
+  pip:
+    requirements: "{{ requirements_file }}"
+  tags: 
+    - install_dependencies
+
+- name: Start the Flask application
+  shell: nohup python3 "{{ app_path }}" > /dev/null 2>&1 &
+  tags: 
+    - start_app

@@ -1,0 +1,3 @@
+https://github.com/iampsrv/terraform-pranjal-batch23mod
+
+https://developer.hashicorp.com/terraform/registry/modules/publish

@@ -1,0 +1,4 @@
+# roles/flask_app_deployment/defaults/main.yml
+repo_url: https://github.com/iampsrv/aws-flask.git
+repo_dest: /home/ubuntu/application
+requirements_file: "{{ repo_dest }}/req.txt"

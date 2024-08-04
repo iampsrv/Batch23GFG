@@ -1,0 +1,2 @@
+# roles/flask_app_deployment/vars/main.yml
+app_path: "{{ repo_dest }}/app.py"

@@ -1,0 +1,13 @@
+---
+- name: Copy files using loop
+  hosts: prod
+  become: yes
+  tasks:
+    - name: Copy files
+      copy:
+        src: "{{ item }}"
+        dest: "/home/ubuntu"
+      loop:
+        - ddd.yml
+        - docker.yml
+        - fetch.yml

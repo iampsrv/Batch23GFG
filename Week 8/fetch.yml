@@ -1,0 +1,8 @@
+- name: Fetch Files from Remote Hosts
+  hosts: prod
+  become: yes
+  tasks:
+    - name: Fetch a file from remote host
+      fetch:
+        src: /home/ubuntu/slave.txt
+        dest: /home/ubuntu/slave.txt

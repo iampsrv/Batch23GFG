@@ -1,0 +1,7 @@
+---
+- name: Run Shell Script
+  hosts: prod
+  become: yes
+  tasks:
+    - name: Execute shell script
+      command: sh /home/ubuntu/script.sh

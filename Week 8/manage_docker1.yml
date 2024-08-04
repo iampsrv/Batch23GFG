@@ -1,0 +1,14 @@
+---
+- name: Manage Docker Containers
+  hosts: prod
+  become: yes
+  tasks:
+    - name: Stop Docker container
+      docker_container:
+        name: my_flask_container
+        state: stopped
+
+    - name: Remove Docker container
+      docker_container:
+        name: my_flask_container
+        state: absent

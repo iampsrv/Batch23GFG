@@ -1,0 +1,9 @@
+ansible all -m ping
+ansible my_server -m command -a "ls /tmp"
+ansible web_servers -m apt -a "name=nginx state=present"
+ansible web_servers -m service -a "name=nginx state=restarted"
+ansible web_servers -m service -a "name=nginx state=restarted" --become
+ansible web_servers -m copy -a "src=/path/to/local/file.txt dest=/remote/path/file.txt"
+ansible all -m shell -a "df -h"
+ansible app_servers -m file -a "path=/var/www/myapp state=directory mode=0755"
+ansible database_servers -m fetch -a "src=/var/log/db.log dest=/tmp/"

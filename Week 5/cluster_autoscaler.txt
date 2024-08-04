@@ -1,0 +1,85 @@
+Step1:
+
+oidc_id=$(aws eks describe-cluster --name new-eks-cluster4 --query "cluster.identity.oidc.issuer" --output text | cut -d '/' -f 5)
+aws iam list-open-id-connect-providers | grep $oidc_id | cut -d "/" -f4
+eksctl utils associate-iam-oidc-provider --cluster new-eks-cluster4 --approve
+
+------------------------------------------------------------------------------------------------------------------------------------
+Step2:
+
+AmazonEKSClusterAutoscalerPolicy 
+
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "VisualEditor0",
+      "Effect": "Allow",
+      "Action": [
+        "autoscaling:SetDesiredCapacity",
+        "autoscaling:TerminateInstanceInAutoScalingGroup"
+      ],
+      "Resource": "*",
+      "Condition": {
+        "StringEquals": {
+          "aws:ResourceTag/k8s.io/cluster-autoscaler/new-eks-cluster4": "owned"
+        }
+      }
+    },
+    {
+      "Sid": "VisualEditor1",
+      "Effect": "Allow",
+      "Action": [
+        "autoscaling:DescribeAutoScalingInstances",
+        "autoscaling:DescribeAutoScalingGroups",
+        "ec2:DescribeLaunchTemplateVersions",
+        "autoscaling:DescribeTags",
+        "autoscaling:DescribeLaunchConfigurations",
+        "ec2:DescribeInstanceTypes"
+      ],
+      "Resource": "*"
+    }
+  ]
+}
+------------------------------------------------------------------------------------------------------------------------------------
+Step3:
+
+eksctl create iamserviceaccount \
+  --cluster=new-eks-cluster4 \
+  --namespace=kube-system \
+  --name=cluster-autoscaler \
+  --attach-policy-arn=arn:aws:iam::686766985335:policy/AmazonEKSClusterAutoscalerPolicy \
+  --override-existing-serviceaccounts \
+  --approve
+
+------------------------------------------------------------------------------------------------------------------------------------
+Step4:
+
+curl -O https://raw.githubusercontent.com/kubernetes/autoscaler/master/cluster-autoscaler/cloudprovider/aws/examples/cluster-autoscaler-autodiscover.yaml
+
+Note: change the name of clister inside yaml file
+kubectl apply -f cluster-autoscaler-autodiscover.yaml
+kubectl get all -n kube-system
+
+------------------------------------------------------------------------------------------------------------------------------------
+Step5:
+
+kubectl edit deploy cluster-autoscaler -n kube-system
+
+- --balance-similar-node-groups
+- --skip-nodes-with-system-pods=false
+
+------------------------------------------------------------------------------------------------------------------------------------
+Step6:
+
+kubectl set image deployment/cluster-autoscaler \
+-n kube-system \
+cluster-autoscaler=k8s.gcr.io/autoscaling/cluster-autoscaler:v1.24.0
+
+------------------------------------------------------------------------------------------------------------------------------------
+Step7:
+
+kubectl -n kube-system logs -f deployment.apps/cluster-autoscaler
+
+Change the number of min and max nodes in nodegroups
+

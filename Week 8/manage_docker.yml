@@ -1,0 +1,12 @@
+---
+- name: Manage Docker Containers
+  hosts: prod
+  become: yes
+  tasks:
+    - name: Create and start Docker container
+      docker_container:
+        name: my_flask_container
+        image: psrv3/argocd-example:v2.0
+        state: started
+        ports:
+          - "5000:5000"

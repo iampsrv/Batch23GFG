@@ -1,0 +1,42 @@
+                                    Master Node
+
+sudo apt-get update
+sudo apt install software-properties-common
+sudo apt-add-repository -y ppa:ansible/ansible (optional)
+sudo apt update (optional)
+sudo apt install ansible -y
+
+ssh-keygen
+copy id_rsa.pub into slave (/.ssh/authorized_keys)
+
+vi /etc/ansible/hosts
+
+[prod]
+slave1 ansible_ssh_host=18.212.12.236
+
+                                    Slave Node
+sudo apt-get update
+sudo apt update
+sudo apt install python3-boto3 -y
+
+------------------------------------------------------------------------
+
+ansible -m ping all
+ansible -m ping prod
+ansible -m ping slave1
+
+ansible -m ping -u ubuntu all	
+ansible -m ping all -i my_inventory.ini
+
+ansible playbook <>.yaml
+
+------------------------------------------------------------------------
+[group_name]
+host1 ansible_ssh_host=hostname_or_ip_address ansible_ssh_user=username ansible_ssh_pass=password
+
+[group_name]
+host2 ansible_ssh_host=hostname_or_ip_address ansible_ssh_user=username ansible_ssh_key=/path/to/ssh/key_file
+
+[group_name:vars]
+ansible_ssh_port=ssh_port
+ansible_python_interpreter=/usr/bin/python3

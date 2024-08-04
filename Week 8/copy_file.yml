@@ -1,0 +1,9 @@
+---
+- name: Copy File to Ansible Slave
+  hosts: prod
+  become: yes
+  tasks:
+    - name: Copy file to target server
+      copy:
+        src: /home/ubuntu/ansible-playbook/script.sh
+        dest: /home/ubuntu/script.sh

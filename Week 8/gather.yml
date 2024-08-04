@@ -1,0 +1,9 @@
+---
+- name: Gather Facts Example
+  hosts: prod
+  gather_facts: yes
+
+  tasks:
+    - name: Display gathered facts
+      debug:
+        var: ansible_facts

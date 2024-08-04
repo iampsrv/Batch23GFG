@@ -1,0 +1,5 @@
+---
+- name: Configure Nginx
+  hosts: worker2
+  roles:
+    - my_nginx_role

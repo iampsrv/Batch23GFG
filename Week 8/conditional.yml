@@ -1,0 +1,25 @@
+---
+- name: Manage Docker Containers
+  hosts: prod
+  become: yes
+  tasks:
+    - name: Ensure Docker container is running
+      docker_container:
+        name: my_flask_container
+        image: psrv3/argocd-example:v2.0
+        state: started
+      when: desired_state == 'started'
+
+    # ansible-playbook -e "desired_state=stopped" role_test.yml
+
+    - name: Stop Docker container
+      docker_container:
+        name: my_flask_container
+        state: stopped
+      when: desired_state == 'stopped'
+
+    - name: Remove Docker container
+      docker_container:
+        name: my_flask_container
+        state: absent
+      when: desired_state == 'absent'
