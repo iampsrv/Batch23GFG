@@ -1,0 +1,20 @@
+---
+- name: Simple Web Server Management
+  hosts: prod
+  become: yes
+
+  tasks:
+    - name: Change Timeout to 120
+      lineinfile:
+        path: /etc/apache2/apache2.conf
+        regexp: '^Timeout'
+        line: 'Timeout 120'
+        state: present
+      notify:
+        - restart apache
+
+  handlers:
+    - name: restart apache
+      service:
+        name: apache2
+        state: restarted
