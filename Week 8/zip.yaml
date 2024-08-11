@@ -1,0 +1,18 @@
+---
+- name: Zip install
+  hosts: prod
+  become: yes
+  tasks:
+    - name: install zip
+      apt:
+        name: zip
+        state: latest
+    - name: Copy file to target server
+      copy:
+        src: newtest.zip
+        dest: /home/ubuntu/newtest.zip
+    - name: Unarchive a file that is already on the remote machine
+      ansible.builtin.unarchive:
+        src: /home/ubuntu/newtest.zip
+        dest: /home/ubuntu/
+        remote_src: yes
