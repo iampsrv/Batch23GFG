@@ -1,0 +1,18 @@
+Configuration File Validation:
+./promtool check config <config-file.yml>
+
+Rule File Validation:
+./promtool check rules <rule-file.yml>
+
+Expression Evaluation:
+./promtool query instant <expression> [flags]
+
+Generate Sample Configuration:
+./promtool init config <config-file.yml>
+
+Generate Sample Rule File:
+./promtool init rules <rule-file.yml>
+
+Linting Prometheus YAML Files:
+./promtool check yaml <config-file.yml>
+

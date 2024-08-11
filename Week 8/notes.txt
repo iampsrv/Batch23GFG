@@ -1,0 +1,67 @@
+Ansible: Open source, 
+Configuration management tool, 
+Agentless (SSH),
+Yaml (simple)
+Idempotent
+
+ALternative of Ansible:
+Chef (cookbook)
+Puppet
+Saltstack
+
+Tasks:
+Package Management (installation/uninstall/update)
+System Configuration (Managing services, firewall setting, permissions)
+Run shell scripts
+File management
+Container management
+Application deployment
+Provisining the infrastructure
+
+Playbooks (Ansible configuration file): Mention all tasks, where to perform those tasks
+
+Inventory (address of the hosts of different env) ex: webserver, dbservers of prod, dev and stag env
+
+Ansible: Modules
+Terraform: Providers
+
+Modules as well as providers are plugins (pieces of code that extend core Ansible functionality)
+custom module => Code (python)
+
+Ansible: Roles (Roles let you automatically load related vars, files, tasks, handlers, and other Ansible artifacts based on a known file structure.)
+Terraform: Modules
+
+
+Ansible: Galaxy (publish roles, modules, etc)
+Terraform: Registry (publish modules, providers etc)
+
+
+Ansible components:
+
+Master Node: Ansible is installed
+Worker Node: Python is installed
+
+Client server Architecture
+
+Client (Master node)
+Server (Worker Node)
+
+Master Node = Control node
+Worker Node = Managed nodes (different hosts (web/db))
+
+
+Imp Urls: 
+Ansible Components: https://docs.ansible.com/ansible/latest/getting_started/index.html
+Features: https://docs.ansible.com/ansible/latest/getting_started/introduction.html
+Inventories: https://docs.ansible.com/ansible/latest/getting_started/get_started_inventory.html
+
+Precendence
+Terraform: tfvar > var.tf > main.tf
+
+Ansible: var>playbook>inventory
+
+Adhoc commands: to automate a single task on one or more managed nodes. ad hoc commands are quick and easy, but they are not reusable. 
+
+ansible [pattern] -m [module] -a "[module options]"
+
+
